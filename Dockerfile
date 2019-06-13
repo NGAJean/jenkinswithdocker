@@ -1,5 +1,4 @@
-from jenkins/jenkins:lts
-
+FROM jenkins/jenkins:lts
 USER root
 RUN apt-get update -qq \
     && apt-get install -qqy apt-transport-https ca-certificates curl gnupg2 software-properties-common 
@@ -11,5 +10,3 @@ RUN add-apt-repository \
 RUN apt-get update  -qq \
     && apt-get install docker-ce -y
 RUN usermod -aG docker jenkins
-
-USER jenkins
