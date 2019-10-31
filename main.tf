@@ -4,9 +4,9 @@ provider "docker" {
 }
 
 # Create a container
-resource "docker_container" "foo" {
+resource "docker_container" "MyUbuntuLatest" {
   image = "${docker_image.ubuntu.latest}"
-  name  = "foo"
+  name  = "MyUbuntuLatest"
 }
 
 resource "docker_image" "ubuntu" {
