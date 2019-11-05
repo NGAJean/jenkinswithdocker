@@ -7,6 +7,7 @@ provider "docker" {
 resource "docker_container" "MyUbuntuLatest" {
   image = "${docker_image.ubuntu.latest}"
   name  = "MyUbuntuLatest"
+  rm = true
 }
 
 resource "docker_image" "ubuntu" {
