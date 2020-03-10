@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Build'
-        anchore 'Scan image'
+        anchore 'docker.io/ngajean/jenkins-docker:158'
       }
     }
 
