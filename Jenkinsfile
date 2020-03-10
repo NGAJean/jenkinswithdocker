@@ -1,11 +1,10 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage('Scan') {
       steps {
-        echo 'Build'
-        anchore 'docker.io/ngajean/jenkins-docker:158'
         writeFile(file: 'image_to_scan', text: 'docker.io/ngajean/jenkins-docker:240')
+        anchore 'image_to_scan'
       }
     }
 
