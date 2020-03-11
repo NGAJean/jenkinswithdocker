@@ -1,6 +1,7 @@
 FROM jenkins/jenkins:latest
 USER root
 RUN apt-get update -qq \
+    && apt-get upgrade -y \
     && apt-get install --no-install-recommends -qqy apt-transport-https ca-certificates curl gnupg2 software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
