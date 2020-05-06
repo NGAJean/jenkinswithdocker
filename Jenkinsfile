@@ -5,10 +5,9 @@ pipeline {
     }
 
   } 
-  stage('Scan') {
+  stage('Webhook from github') {
     steps {
-      writeFile(file: 'image_to_scan', text: 'docker.io/ngajean/jenkins-docker:latest')
-      anchore 'image_to_scan'
+      echo 'Webhook from github'
     }
   }
 }
