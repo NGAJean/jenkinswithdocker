@@ -1,7 +1,7 @@
 pipeline {
   environment {
     callback = registerWebhook()
-    callback_url = $callback.getURL()
+    callback_url = callback.getURL()
   }  
   agent {
     node {
