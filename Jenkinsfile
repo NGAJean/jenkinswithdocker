@@ -19,7 +19,7 @@ pipeline {
     }
     stage ("Long Running Stage") {
        steps { 
-        data = waitForWebhook ${callback_object)
+        data = waitForWebhook $callback_object
        }
     }
     // Block and wait for the remote system to callback
