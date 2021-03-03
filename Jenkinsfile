@@ -7,7 +7,6 @@ pipeline {
   stages {
     stage('Build new image on Docker Hub') {
          steps {
-          sh 'echo "Waiting for build"'
           callback_url = registerWebhook()
          }
     }
