@@ -21,7 +21,7 @@ pipeline {
     stage ("Long Running Stage") {
        steps { 
         // Block and wait for the remote system to callback
-        data = waitForWebhook ${callback_object}
+        def data = waitForWebhook ${callback_object}
         echo 'Make some tests'
        }
     }
