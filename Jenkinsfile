@@ -11,7 +11,7 @@ pipeline {
     stage('Build new image on Docker Hub') {
          
          steps {
-           echo "$(callback_url)"
+           echo "${callback_url}"
          }
     }
     stage('Test new image') {
