@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage('Build new image on Docker Hub') {
       steps {
-        echo 'Webhook from github'
+        echo 'Waiting from build'
       }
     }
     stage('Test new image') {
