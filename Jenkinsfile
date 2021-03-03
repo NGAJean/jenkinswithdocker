@@ -10,8 +10,9 @@ pipeline {
          echo "Waiting for build"
          callback_url = registerWebhook()
          echo "${callback_url}"
+        
          // Call a remote system to start execution, passing a callback url
-         sh "curl -X POST -H 'Content-Type: application/json' -d '{\"callback\":\"${callback_url}"}' http://localhost/post"
+         sh "curl -X POST -H 'Content-Type: application/json' -d '{\"callback\":\"${callback_url}\"}' http://localhost/post"
 
          // Block and wait for the remote system to callback
          waitForWebhook callback_url        
