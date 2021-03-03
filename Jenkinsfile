@@ -12,6 +12,7 @@ pipeline {
          
          steps {
            echo "${callback_url}"
+           waitForWebhook callback_url
          }
     }
     stage('Test new image') {
