@@ -16,7 +16,7 @@ pipeline {
           sh "curl -X POST -H 'Content-Type: application/json' -d '{\"callback\":\"${callback_url}\"}' ${docker_url}"
 
           // Block and wait for the remote system to callback
-          waitForWebhook ${callback}
+          data = waitForWebhook callback 
          }
     }
     stage('Test new image') {
