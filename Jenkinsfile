@@ -13,8 +13,8 @@ pipeline {
     stage('Build new image on Docker Hub') {
          steps {          
           // Call a remote system to start execution, passing a callback url
-          sh "curl -X POST -H 'Content-Type: application/json' -d '{\"callback\":\"${callback_url}\"}' ${docker_url}" 
-          
+          //sh "curl -X POST -H 'Content-Type: application/json' -d '{\"callback\":\"${callback_url}\"}' ${docker_url}"           
+          sh "curl -X POST -H 'Content-Type: application/json' ${docker_url}"           
          }
     }
     stage ("Long Running Stage") {
