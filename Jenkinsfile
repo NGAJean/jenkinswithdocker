@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    callback = registerWebhook()
+    callback = registerWebhook('dockerhubbuild')
     callback_url = callback.getURL()
   }  
   agent {
