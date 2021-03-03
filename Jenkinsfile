@@ -6,7 +6,6 @@ pipeline {
   } 
   stages {
     stage('Build new image on Docker Hub') {
-      steps {
          echo "Waiting for build"
          callback_url = registerWebhook()
          echo "${callback_url}"
@@ -16,8 +15,6 @@ pipeline {
 
          // Block and wait for the remote system to callback
          waitForWebhook callback_url        
-        
-      }
     }
     stage('Test new image') {
       steps {
