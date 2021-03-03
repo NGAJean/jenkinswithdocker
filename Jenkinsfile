@@ -12,12 +12,11 @@ pipeline {
   stages {
     stage('Build new image on Docker Hub') {
          steps {          
-          echo "${callback_url}"
           // Call a remote system to start execution, passing a callback url
           sh "curl -X POST -H 'Content-Type: application/json' -d '{\"callback\":\"${callback_url}\"}' ${docker_url}"
 
           // Block and wait for the remote system to callback
-          waitForWebhook callback           
+          waitForWebhook ${callback}
          }
     }
     stage('Test new image') {
