@@ -1,6 +1,6 @@
 pipeline {
    environment {
-     callback = registerWebhook()
+     callback = registerWebhook('DockerHub')
      callback_url = callback.getURL()
      docker_url= "https://hub.docker.com/api/build/v1/source/c73d69d4-5266-4e69-a401-645a72d81071/trigger/ba4173ba-a22c-4adb-a966-d676987c53dd/call/" 
    }
@@ -19,7 +19,7 @@ pipeline {
     }
     stage ("Long Running Stage") {
        steps { 
-        data = waitForWebhook callback
+        data = waitForWebhook ${callback)
        }
     }
     // Block and wait for the remote system to callback
