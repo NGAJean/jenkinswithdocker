@@ -19,12 +19,11 @@ pipeline {
     }
     stage ("Long Running Stage") {
        steps { 
-        waitForWebhook $callback_object
+        // Block and wait for the remote system to callback
+        //waitForWebhook $callback_object
+        echo 'Make some tests'
        }
     }
-    // Block and wait for the remote system to callback
-    
-    
     stage('Test new image') {
       steps {
         echo 'Make some tests'
