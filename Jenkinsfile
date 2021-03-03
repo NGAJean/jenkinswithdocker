@@ -6,15 +6,12 @@ pipeline {
   } 
   stages {
     stage('Build new image on Docker Hub') {
-      steps {
-        hook = registerWebhook()
+      hook = registerWebhook()
 
-        echo "Waiting for POST to ${hook.getURL()}"
+      echo "Waiting for POST to ${hook.getURL()}"
 
-        data = waitForWebhook hook
-        echo "Webhook called with data: ${data}"       
-        echo 'Waiting from build'
-      }
+      data = waitForWebhook hook
+      echo "Webhook called with data: ${data}"       
     }
     stage('Test new image') {
       steps {
