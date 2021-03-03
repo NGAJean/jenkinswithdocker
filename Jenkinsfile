@@ -1,4 +1,7 @@
 pipeline {
+  environment {
+     callback_url = registerWebhook()
+  }  
   agent {
     node {
       label 'master'
@@ -6,9 +9,9 @@ pipeline {
   } 
   stages {
     stage('Build new image on Docker Hub') {
-         callback_url = registerWebhook()
+         
          steps {
-           echo 'Make some tests'
+           echo "$(callback_url)"
          }
     }
     stage('Test new image') {
