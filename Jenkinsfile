@@ -12,7 +12,6 @@ pipeline {
     stage('Build new image on Docker Hub') {
          steps {
            echo "${callback_url}"
-           waitForWebhook $callback
          }
     }
     stage('Test new image') {
