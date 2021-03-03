@@ -14,11 +14,12 @@ pipeline {
          steps {          
           // Call a remote system to start execution, passing a callback url
           sh "curl -X POST -H 'Content-Type: application/json' -d '{\"callback\":\"${callback_url}\"}' ${docker_url}" 
+          data = waitForWebhook callback
          }
     }
 
     // Block and wait for the remote system to callback
-    data = waitForWebhook callback
+    
     
     stage('Test new image') {
       steps {
