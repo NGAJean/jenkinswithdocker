@@ -18,7 +18,9 @@ pipeline {
          }
     }
     stage ("Long Running Stage") {
+       steps { 
         data = waitForWebhook callback
+       }
     }
     // Block and wait for the remote system to callback
     
