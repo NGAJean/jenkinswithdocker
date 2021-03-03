@@ -2,7 +2,7 @@ pipeline {
   environment {
     callback = registerWebhook()
     callback_url = callback.getURL()
-    docker_url= "https://hub.docker.com/api/build/v1/source/8c1f1bb1-9f2c-4057-9ad6-7054293b2375/trigger/35b2d246-27a4-4584-9293-212ce29970a5/call/" 
+    docker_url= "https://hub.docker.com/api/build/v1/source/c73d69d4-5266-4e69-a401-645a72d81071/trigger/ba4173ba-a22c-4adb-a966-d676987c53dd/call/" 
   }  
   agent {
     node {
