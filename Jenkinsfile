@@ -12,7 +12,7 @@ pipeline {
     }
     stage('Software Quality Gate') {
       steps {
-          //error 'Source Code not compliant with best practices'
+          error 'Source Code not compliant with best practices'
           echo 'Software Quality Gate OK'
       }
     }
