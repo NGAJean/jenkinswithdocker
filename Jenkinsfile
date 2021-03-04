@@ -37,6 +37,7 @@ pipeline {
                     }
                 }
             }
+    }
     stage('Tag new image ready to prod') {
       steps {
         echo 'Tag new image ready to prod'
