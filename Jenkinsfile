@@ -11,10 +11,22 @@ pipeline {
          }
     }
     stage('Software Quality Gate') {
-         steps {          
-          echo 'Make some tests'
-         }
-    }     
+      agent {
+          docker {
+              image 'hadolint/hadolint:latest-debian'
+              //image 'ghcr.io/hadolint/hadolint:latest-debian'
+          }
+      }
+      steps {
+          sh 'hadolint dockerfiles/* | tee -a hadolint_lint.txt'
+      }
+      post {
+          always {
+              archiveArtifacts 'hadolint_lint.txt'
+          }
+      }
+    }
+
     stage ("Build new image on Docker Hub") {
        steps { 
         echo 'Build new image OK'
