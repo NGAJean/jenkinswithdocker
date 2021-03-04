@@ -10,29 +10,33 @@ pipeline {
     }
   } 
   stages {
-    stage('Build new image on Docker Hub') {
+    stage('Git Synchronization') {
          steps {          
-          // Call a remote system to start execution, passing a callback url
-          sh "curl -X POST -H 'Content-Type: application/json' -d '{\"callback\":\"${callback_url}\"}' ${docker_url}"           
-          //sh "curl -X POST -H 'Content-Type: application/json' ${docker_url}"   
-          echo 'Make some tests'
+          echo 'Git Synchronization'
          }
     }
-    stage ("Long Running Stage") {
+    stage('Software Quality Gate') {
+         steps {          
+          echo 'Make some tests'
+         }
+    }     
+    stage ("Build new image on Docker Hub") {
        steps { 
-        // Block and wait for the remote system to callback
-        script {
-          def data = waitForWebhook ${callback_object}
-          echo "${callback_url}"
-        }
-        echo 'Make some tests'
+        echo 'Build new image'
        }
-    }
-    stage('Test new image') {
-      steps {
-        echo 'Make some tests'
-      }
-    }
+    stage('Prod Quality Gate') {
+            parallel {
+                stage('Security Compliance Check') {
+                    steps {
+                        echo 'Security Compliance Check OK'
+                    }
+                }
+                stage('Bench Compliance Check') {
+                    steps {
+                        echo 'Bench Compliance Check OK'
+                    }
+                }
+            }
     stage('Tag new image ready to prod') {
       steps {
         echo 'Tag new image ready to prod'
