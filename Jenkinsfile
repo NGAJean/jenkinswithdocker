@@ -24,6 +24,7 @@ pipeline {
        steps { 
         echo 'Build new image'
        }
+    }
     stage('Prod Quality Gate') {
             parallel {
                 stage('Security Compliance Check') {
