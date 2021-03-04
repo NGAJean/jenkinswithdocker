@@ -12,8 +12,7 @@ pipeline {
     }
     stage('Software Quality Gate') {
       steps {
-          error 'Source Code not compliant with best practices'
-          echo 'Software Quality Gate OK'
+          sh 'grep maintainer Dockerfile'
       }
     }
 
@@ -24,10 +23,9 @@ pipeline {
     }
     stage('Prod Quality Gate') {
             parallel {
-                stage('Security Compliance Check') {
+                stage('Security Compliance Checks') {
                     steps {
-                        error 'Security Compliance Check Failed : container run as root user'
-                        echo 'Security Compliance Check OK : all tests passed'
+                        sh '! grep -e "FROM .*:latest" Dockerfile'
                     }
                 }
                 stage('Bench Compliance Check') {
