@@ -12,7 +12,7 @@ pipeline {
     }
     stage('Software Quality Gate') {
       steps {
-          error "Source Code not compliant with best practices"
+          error 'Source Code not compliant with best practices'
           echo 'Software Quality Gate OK'
       }
     }
@@ -26,6 +26,7 @@ pipeline {
             parallel {
                 stage('Security Compliance Check') {
                     steps {
+                        error 'Security Compliance Check Failed : container run as root user'
                         echo 'Security Compliance Check OK'
                     }
                 }
