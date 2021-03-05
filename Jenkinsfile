@@ -12,12 +12,14 @@ pipeline {
     }
     stage('Software Quality Gate') {
       steps {
+          sleep 5
           sh 'grep maintainer Dockerfile'
       }
     }
 
     stage ("Build new image on Docker Hub") {
        steps { 
+        sleep 5
         echo 'Build new image OK'
        }
     }
@@ -25,11 +27,13 @@ pipeline {
             parallel {
                 stage('Security Compliance Checks') {
                     steps {
+                        sleep 5
                         sh '! grep -e "FROM .*:latest" Dockerfile'
                     }
                 }
                 stage('Bench Compliance Check') {
                     steps {
+                        sleep 10
                         echo 'Bench Compliance Check OK'
                     }
                 }
@@ -37,6 +41,7 @@ pipeline {
     }
     stage('Tag new image ready to prod') {
       steps {
+        sleep 5
         echo 'New image tagged ready to prod'
       }
     }
