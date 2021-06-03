@@ -1,4 +1,5 @@
-FROM jenkins/jenkins:2.296
+FROM jenkins/jenkins:2.296-jdk11
+
 LABEL maintainer="julien@mengin.fr"
 
 USER root
