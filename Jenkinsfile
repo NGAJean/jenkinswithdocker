@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      label 'master'
+      label 'docker'
     }
   } 
   stages {
@@ -19,8 +19,12 @@ pipeline {
 
     stage ("Build new image on Docker Hub") {
        steps { 
-        sleep 5
-        echo 'Build new image OK'
+          sh 'ls'
+          sh 'docker info'
+          //sh 'docker build -t jenkins-demo:${BUILD_NUMBER} .'
+          //sh 'docker tag jenkins-demo:${BUILD_NUMBER} jenkins-demo:latest'
+          //sh 'docker images'
+          echo 'Build new image OK'        
        }
     }
     stage('Prod Quality Gate') {
