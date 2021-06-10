@@ -26,12 +26,9 @@ pipeline {
     stage ("Build new image on Docker Hub") {
        steps { 
           script {
-            dockerImage = docker.build registry + ":$BUILD_NUMBER"
-          }
-          sh 'docker tag ngajean/jenkins-docker:${BUILD_NUMBER} ngajean/jenkins-docker:latest'
-          script {
+            dockerImage = docker.build registry
             docker.withRegistry( '', registryCredential ) {
-              dockerImage.push()
+              dockerImage.push("${env.BUILD_NUMBER}")
             }
           }
           echo 'Build new image OK'        
@@ -54,10 +51,14 @@ pipeline {
             }
     }
     stage('Tag new image ready to prod') {
-      steps {
-        sleep 5
-        echo 'New image tagged ready to prod'
-      }
+       steps { 
+          script {
+            docker.withRegistry( '', registryCredential ) {
+              dockerImage.push("latest")
+            }
+          }
+          echo 'Build new image OK'        
+       }
     }
   } 
 }
