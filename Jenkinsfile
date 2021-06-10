@@ -19,9 +19,9 @@ pipeline {
 
     stage ("Build new image on Docker Hub") {
        steps { 
-          sh 'docker build -t jenkinswithdocker:${BUILD_NUMBER} .'
-          sh 'docker tag jenkinswithdocker:${BUILD_NUMBER} jenkinswithdocker:latest'
-          sh 'docker images'
+          sh 'docker build -t ngajean/jenkins-docker:${BUILD_NUMBER} .'
+          sh 'docker tag ngajean/jenkins-docker:${BUILD_NUMBER} ngajean/jenkins-docker:latest'
+          sh 'docker push ngajean/jenkins-docker:${BUILD_NUMBER}'
           echo 'Build new image OK'        
        }
     }
