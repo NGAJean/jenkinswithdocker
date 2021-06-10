@@ -19,11 +19,9 @@ pipeline {
 
     stage ("Build new image on Docker Hub") {
        steps { 
-          sh 'ls'
-          sh 'docker info'
-          //sh 'docker build -t jenkins-demo:${BUILD_NUMBER} .'
-          //sh 'docker tag jenkins-demo:${BUILD_NUMBER} jenkins-demo:latest'
-          //sh 'docker images'
+          sh 'docker build -t jenkinswithdocker:${BUILD_NUMBER} .'
+          sh 'docker tag jenkinswithdocker:${BUILD_NUMBER} jenkinswithdocker:latest'
+          sh 'docker images'
           echo 'Build new image OK'        
        }
     }
