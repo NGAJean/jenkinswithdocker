@@ -1,4 +1,10 @@
 pipeline {
+  environment {
+      registry = "ngajean/jenkins-docker"
+      registryCredential = 'b2c37527-3467-4561-b586-f155ed841656'
+      dockerImage = ''
+  }
+
   agent {
     node {
       label 'docker'
@@ -19,9 +25,14 @@ pipeline {
 
     stage ("Build new image on Docker Hub") {
        steps { 
-          sh 'docker build -t ngajean/jenkins-docker:${BUILD_NUMBER} .'
+          script {
+            dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          }
           sh 'docker tag ngajean/jenkins-docker:${BUILD_NUMBER} ngajean/jenkins-docker:latest'
-          sh 'docker push ngajean/jenkins-docker:${BUILD_NUMBER}'
+          script {
+            docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
           echo 'Build new image OK'        
        }
     }
