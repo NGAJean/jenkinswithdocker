@@ -31,7 +31,8 @@ pipeline {
           sh 'docker tag ngajean/jenkins-docker:${BUILD_NUMBER} ngajean/jenkins-docker:latest'
           script {
             docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
+              dockerImage.push()
+            }
           }
           echo 'Build new image OK'        
        }
