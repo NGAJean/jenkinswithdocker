@@ -61,4 +61,12 @@ pipeline {
        }
     }
   } 
+  post {
+    success {
+      slackSend color: "good", message: "${env.JOB_NAME} ${env.BUILD_NUMBER} has result success"
+    }
+    failure {
+      slackSend color: "danger", message: "${env.JOB_NAME} ${env.BUILD_NUMBER} has result failed"
+    }
+  }
 }
