@@ -18,7 +18,6 @@ pipeline {
     }
     stage('Software Quality Gate') {
       steps {
-          sleep 5
           sh 'grep maintainer Dockerfile'
       }
     }
@@ -38,13 +37,11 @@ pipeline {
             parallel {
                 stage('Security Compliance Checks') {
                     steps {
-                        sleep 5
                         sh '! grep -e "FROM .*:latest" Dockerfile'
                     }
                 }
                 stage('Bench Compliance Check') {
                     steps {
-                        sleep 10
                         echo 'Bench Compliance Check OK'
                     }
                 }
@@ -56,8 +53,7 @@ pipeline {
             docker.withRegistry( '', registryCredential ) {
               dockerImage.push("latest")
             }
-          }
-          echo 'Build new image OK'        
+          }   
        }
     }
   } 
