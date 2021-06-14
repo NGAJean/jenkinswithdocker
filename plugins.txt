@@ -1,2 +1,2 @@
 configuration-as-code
-blueocean-plugin
+blueocean
