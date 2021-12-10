@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.316-jdk11
+FROM jenkins/jenkins:2.324-jdk11
 
 LABEL maintainer="julien@mengin.fr"
 
