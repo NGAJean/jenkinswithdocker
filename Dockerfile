@@ -6,8 +6,7 @@ LABEL maintainer="julien@mengin.fr"
 USER root
 
 # Allow Jenkins to communicate with docker daemon
-RUN groupadd -g 999 docker
-RUN usermod -aG docker jenkins
+RUN groupadd -g 999 docker && usermod -aG docker jenkins
 
 # Install plugins
 COPY --chown=jenkins:jenkins plugins.txt /usr/share/jenkins/ref/plugins.txt
