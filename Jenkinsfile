@@ -4,7 +4,6 @@ pipeline {
       registryCredential = 'b2c37527-3467-4561-b586-f155ed841656'
       dockerImage = ''
   }
-
   agent {
     node {
       label 'docker'
@@ -21,7 +20,6 @@ pipeline {
           sh 'grep maintainer Dockerfile'
       }
     }
-
     stage ("Build new image on Docker Hub") {
        steps { 
           script {
