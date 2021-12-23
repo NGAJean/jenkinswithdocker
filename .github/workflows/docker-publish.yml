@@ -20,7 +20,7 @@ env:
   REGISTRY: docker.io
   # github.repository as <account>/<repo>
   ACCOUNT: ngajean
-  REPO: jenkins-slave-docker
+  REPO: jenkins-docker
 
 jobs:
   build:
