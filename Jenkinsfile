@@ -22,13 +22,15 @@ pipeline {
     }
     stage ("Build new image on Docker Hub") {
        steps { 
+          /* Remove build action
           script {
             dockerImage = docker.build registry
             docker.withRegistry( '', registryCredential ) {
               dockerImage.push("${env.BUILD_NUMBER}")
             }
           }
-          echo 'Build new image OK'        
+          */
+          echo 'Build new image OK'
        }
     }
     stage('Prod Quality Gate') {
@@ -47,11 +49,14 @@ pipeline {
     }
     stage('Tag new image ready to prod') {
        steps { 
+          /* Remove push action
           script {
             docker.withRegistry( '', registryCredential ) {
               dockerImage.push("latest")
             }
           }   
+          */
+          echo 'Push new image OK'
        }
     }
   } 
