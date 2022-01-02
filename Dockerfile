@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.326-jdk11
+FROM jenkins/jenkins:2.327-jdk11
 LABEL maintainer="julien@mengin.fr"
 # Switch to elevated user to perform actions
 USER root
