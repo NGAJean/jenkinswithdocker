@@ -31,6 +31,15 @@ pipeline {
           echo 'Build new image OK'
        }
     }
+    stage('Snyk image test') {
+      steps {
+        echo 'Testing...'
+        snykSecurity(
+          snykInstallation: 'snyk@latest',
+          snykTokenId: 'snyk-api-token',
+        )
+      }
+    }
     stage('Prod Quality Gate') {
             parallel {
                 stage('Security Compliance Checks') {
