@@ -10,6 +10,11 @@ pipeline {
     }
   } 
   stages {
+    stage("github => pending") {
+        steps {
+            githubNotify status: "PENDING", credentialsId: "github-NGAJean", account: "NGAJean", repo: "jenkinswithdocker"
+        }
+    }    
     stage('Git Synchronization') {
          steps {          
           echo 'Git Synchronization OK'
@@ -55,13 +60,15 @@ pipeline {
           echo 'Push new image OK'
        }
     }
-  } 
+  }
   post {
     success {
       slackSend channel: "#cicd", color: "good", message: "${env.JOB_NAME} ${env.BUILD_NUMBER} has result success"
+      githubNotify status: "SUCCESS", credentialsId: "github-NGAJean", account: "NGAJean", repo: "jenkinswithdocker"
     }
     failure {
       slackSend channel: "#cicd", color: "danger", message: "${env.JOB_NAME} ${env.BUILD_NUMBER} has result failed"
+      githubNotify status: "FAILURE", credentialsId: "github-NGAJean", account: "NGAJean", repo: "jenkinswithdocker"
     }
   }
 }
