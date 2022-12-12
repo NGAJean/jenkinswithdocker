@@ -29,8 +29,11 @@ pipeline {
        steps { 
           script {
             dockerImage = docker.build registry
-            docker.withRegistry( '', registryCredential ) {
-              dockerImage.push("${env.BUILD_NUMBER}")
+            if ( "${env.BRANCH_NAME}" == 'master' ) {
+              docker.withRegistry( '', registryCredential ) {
+                dockerImage.push("${env.BUILD_NUMBER}")
+              }
+              echo "Push new image OK => ${env.BUILD_NUMBER}"
             }
           }
           echo 'Build new image OK'
@@ -53,11 +56,16 @@ pipeline {
     stage('Tag new image ready to prod') {
        steps { 
           script {
-            docker.withRegistry( '', registryCredential ) {
-              dockerImage.push("latest")
-            }
-          }   
-          echo 'Push new image OK'
+            if ( "${env.BRANCH_NAME}" == 'master' ) {
+              docker.withRegistry( '', registryCredential ) {
+                dockerImage.push("latest")
+              }
+              echo 'Push new image OK => latest'
+            }            
+            else {
+              echo 'Not branch master, nothing to do'
+            }            
+          }            
        }
     }
   }
