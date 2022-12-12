@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage("github => pending") {
         steps {
-            githubNotify status: "PENDING", credentialsId: "github-NGAJean", account: "NGAJean", repo: "jenkinswithdocker"
+            githubNotify status: "PENDING", description : "CI/CD testing", credentialsId: "github-NGAJean", account: "NGAJean", repo: "jenkinswithdocker"
         }
     }    
     stage('Git Synchronization') {
@@ -29,8 +29,11 @@ pipeline {
        steps { 
           script {
             dockerImage = docker.build registry
-            docker.withRegistry( '', registryCredential ) {
-              dockerImage.push("${env.BUILD_NUMBER}")
+            if ( "${env.BRANCH_NAME}" == 'master' ) {
+              docker.withRegistry( '', registryCredential ) {
+                dockerImage.push("${env.BUILD_NUMBER}")
+              }
+              echo "Push new image OK => ${env.BUILD_NUMBER}"
             }
           }
           echo 'Build new image OK'
@@ -53,22 +56,27 @@ pipeline {
     stage('Tag new image ready to prod') {
        steps { 
           script {
-            docker.withRegistry( '', registryCredential ) {
-              dockerImage.push("latest")
-            }
-          }   
-          echo 'Push new image OK'
+            if ( "${env.BRANCH_NAME}" == 'master' ) {
+              docker.withRegistry( '', registryCredential ) {
+                dockerImage.push("latest")
+              }
+              echo 'Push new image OK => latest'
+            }            
+            else {
+              echo 'Not branch master, nothing to do'
+            }            
+          }            
        }
     }
   }
   post {
     success {
       slackSend channel: "#cicd", color: "good", message: "${env.JOB_NAME} ${env.BUILD_NUMBER} has result success"
-      githubNotify status: "SUCCESS", credentialsId: "github-NGAJean", account: "NGAJean", repo: "jenkinswithdocker"
+      githubNotify status: "SUCCESS", description : "CI/CD testing", credentialsId: "github-NGAJean", account: "NGAJean", repo: "jenkinswithdocker"
     }
     failure {
       slackSend channel: "#cicd", color: "danger", message: "${env.JOB_NAME} ${env.BUILD_NUMBER} has result failed"
-      githubNotify status: "FAILURE", credentialsId: "github-NGAJean", account: "NGAJean", repo: "jenkinswithdocker"
+      githubNotify status: "FAILURE", description : "CI/CD testing", credentialsId: "github-NGAJean", account: "NGAJean", repo: "jenkinswithdocker"
     }
   }
 }
