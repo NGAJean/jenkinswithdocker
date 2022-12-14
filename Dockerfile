@@ -2,8 +2,10 @@ FROM jenkins/jenkins:2.382-jdk17
 LABEL maintainer="julien@mengin.fr"
 # Switch to elevated user to perform actions
 USER root
+# Retrieve new lists of packages
+RUN /bin/sh -c apt-get update
 # Upgrade all installed packages
-RUN /bin/sh -c apt-get update && apt-get upgrade -y
+RUN /bin/sh -c apt-get upgrade -y
 # Allow Jenkins to communicate with docker daemon
 RUN groupadd -g 999 docker && usermod -aG docker jenkins
 # Install plugins
